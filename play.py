@@ -135,6 +135,8 @@ def main():
             total_lost += 1
 
         print(f"Games played: {total_played}, Won: {total_won}, Lost: {total_lost} ")
+        if str(input("\nContinue y/n: ")) != "y":
+            break
 
 
 if __name__ == "__main__":
