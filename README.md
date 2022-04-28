@@ -20,12 +20,19 @@ You can specify command line arguments to tweak the behavior of the game.
 | -d | Debug Mode. This will print the pattern that you have to guess at the start. |
 | -m *COUNT* | Max number of guesses a player can make. By default it's 10. |
 | -p *COUNT* | Length of pattern to guess. By default it's 4. |
+| -h | Display all command line arguments |
 
 ## Web Based Version
 TBD
 
 ## Using NORDLE as Python Library
-If you want to integrate NORDLE in your app you can import this and use it.
+If you want to integrate NORDLE in your app you can import this and use it. Here is high level overview of all the classes and their purpose.
+|Class|Description|
+|--|--|
+| class Nordle | This is the main game. |
+| class Options | This class allows you to configure Nordle as per your liking. |
+| class Status | This class is used to check the current status of the game. |
+| class GuessResult | Object of this class is returned every time you make a guess. It contains details about your guess. |
 
 
 ## Building NORDLE
