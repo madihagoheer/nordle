@@ -5,7 +5,7 @@ from nordle.nordle import (
     Options,
     CharacterPatternGenerator,
 )
-from colorama import Fore, Style
+from colorama import Fore, Back, Style
 from typing import List, Optional, Set
 import argparse
 
@@ -27,7 +27,7 @@ def format_hints(list: List[str], result: GuessResult) -> str:
 
 def run_game(
     show_hints: bool, debug: bool, max_tries: int, pattern_length: int, char_mode: bool
-):
+) -> int:
     options = Options()
     options.number_of_guesses = max_tries
     options.pattern_length = pattern_length
@@ -69,8 +69,10 @@ def run_game(
 
     if game.current_status() == Status.WON:
         print("Congratulatinos You WON!")
+        return Status.WON
     else:
         print("You Lost!")
+        return Status.LOST
 
 
 def main():
@@ -112,13 +114,27 @@ def main():
     )
 
     args = parser.parse_args()
-    run_game(
-        args.hints,
-        args.debug,
-        int(args.max_tries),
-        int(args.pattern_length),
-        args.character,
-    )
+
+    print(f"{Back.WHITE}{Fore.BLACK} WELCOME TO WORLD!! {Style.RESET_ALL}")
+    total_played = 0
+    total_lost = 0
+    total_won = 0
+
+    while True:
+        result = run_game(
+            args.hints,
+            args.debug,
+            int(args.max_tries),
+            int(args.pattern_length),
+            args.character,
+        )
+        total_played += 1
+        if result == Status.WON:
+            total_won += 1
+        else:
+            total_lost += 1
+
+        print(f"Games played: {total_played}, Won: {total_won}, Lost: {total_lost} ")
 
 
 if __name__ == "__main__":

@@ -1,4 +1,4 @@
-from typing import List, Optional, Set
+from typing import List, Optional, Set, Dict
 from abc import abstractmethod
 import requests
 import random
@@ -111,8 +111,6 @@ class Nordle:
         return self.pattern_to_guess
 
     def new_game(self):
-        if self.status != Status.NOT_STARTED:
-            raise Exception("Game already running")
         self.status = Status.STARTED
         self.pattern_to_guess = self.options.pattern_generator.generate(
             self.options.pattern_length, 0, self.options.pattern_max_value
@@ -150,17 +148,29 @@ class Nordle:
         if self.num_current_tries >= self.options.number_of_guesses:
             self.status = Status.LOST
 
+        characters = set(self.pattern_to_guess)
+        items_remaining: Dict[str, int] = {}
+        for item in self.pattern_to_guess:
+            items_remaining[item] = items_remaining.get(item, 0) + 1
+
         # See if any of the items in the guess align with the input
         for i in range(len(self.pattern_to_guess)):
-            if inp[i] == self.pattern_to_guess[i]:
-                result.indeces_matched.add(i)
+            item = inp[i]
 
-        # If there is not index based match then try to see if content
+            if item == self.pattern_to_guess[i]:
+                result.indeces_matched.add(i)
+                items_remaining[item] -= 1
+
+        # If there is no index based match then try to see if content
         # matches at any other location
-        characters = set(self.pattern_to_guess)
-        for num in inp:
-            if num in characters:
-                result.items_matched.add(num)
+        for i in range(len(self.pattern_to_guess)):
+            item = inp[i]
+
+            if item != self.pattern_to_guess[i] and item in characters:
+                if items_remaining[item] > 0:
+                    result.items_matched.add(item)
+
+                items_remaining[item] -= 1
 
         if len(result.indeces_matched) > 0:
             result.result = GuessResult.POSITION_MATCH

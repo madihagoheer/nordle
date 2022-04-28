@@ -36,7 +36,8 @@ If you want to integrate NORDLE in your app you can import this and use it. Here
 | class GuessResult | Object of this class is returned every time you make a guess. It contains details about your guess. |
 
 
-## Building NORDLE
+# Building NORDLE
+Before you continue make sure you have all the pre-requsits installed. Use this command to install them.
 ```
 python3 -m pip install -r requirements.txt
 ```
@@ -51,8 +52,6 @@ black .
 mypy .
 ```
 
-### Running tests
-CAUTION!!! This section assumes that you have already completed the "Setup & Run" section above.
 ### Run Tests Only
 You can run tests with
 ```
