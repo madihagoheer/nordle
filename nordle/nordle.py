@@ -48,7 +48,7 @@ class GuessingGameRandomOrg(GuessingGameRandomNumberGeneratorBase):
         return r.text.splitlines()
 
 
-class NordleGame:
+class Nordle:
     def __init__(self, options: Optional[Options] = None):
         self.options = options if options else Options()
         self.generator = GuessingGameRandomOrg()

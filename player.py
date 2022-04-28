@@ -1,4 +1,4 @@
-from nordle.nordle import NordleGame, Status, GuessResult, Options
+from nordle.nordle import Nordle, Status, GuessResult, Options
 from colorama import Fore, Style
 from typing import List, Optional, Set
 import argparse
@@ -23,7 +23,7 @@ def run_game(show_hints: bool, debug: bool, max_tries: int, pattern_length: int)
     options = Options()
     options.number_of_guesses = max_tries
     options.number_groups = pattern_length
-    game = NordleGame(options)
+    game = Nordle(options)
     game.new_game()
     while game.current_status() == Status.STARTED:
         guesses = game.remaining_guesses()
@@ -61,7 +61,11 @@ def run_game(show_hints: bool, debug: bool, max_tries: int, pattern_length: int)
 def main():
     parser = argparse.ArgumentParser(description="Nordle Options.")
     parser.add_argument(
-        "-n", "--no_hints", action="store_false", dest="hints", help="Do not show Hints."
+        "-n",
+        "--no_hints",
+        action="store_false",
+        dest="hints",
+        help="Do not show Hints.",
     )
     parser.add_argument(
         "-d",

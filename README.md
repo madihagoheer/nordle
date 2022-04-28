@@ -1,0 +1,59 @@
+
+# NORDLE
+Welcome to NORDLE (Number Wordle) game.
+
+This game is very simple. Your goal is to guess a 4 digit pattern that computer comes up with. Each digit will be between 0 - 7. You will have 10 tries to guess the number. If you
+
+This game comes in two falvors: Terminal based & Web based.
+
+## Terminal Based Version
+Here is how you can run this game.
+```
+python3 -m pip install -r requirements.txt
+python 3 play.py
+```
+
+You can specify command line arguments to tweak the behavior of the game.
+| Option| Behavior|
+| --- | --- |
+| -n | Do not display hints. This will hide the hints that you see after each try. |
+| -d | Debug Mode. This will print the pattern that you have to guess at the start. |
+| -m *COUNT* | Max number of guesses a player can make. By default it's 10. |
+| -p *COUNT* | Length of pattern to guess. By default it's 4. |
+
+## Web Based Version
+TBD
+
+## Using NORDLE as Python Library
+If you want to integrate NORDLE in your app you can import this and use it.
+
+
+## Building NORDLE
+```
+python3 -m pip install -r requirements.txt
+```
+
+### Code Formatting
+```
+black .
+```
+
+### Type Checking
+```
+mypy .
+```
+
+### Running tests
+CAUTION!!! This section assumes that you have already completed the "Setup & Run" section above.
+### Run Tests Only
+You can run tests with
+```
+python3 tests.py
+```
+### Run Tests and Detailed Code Coverage Report
+Run these
+```
+coverage run --source=. tests.py
+coverage html
+```
+Once you run these commands the report will be stored in a new folder called "htmlcov". You can view that report by opening **[htmlconv/index.html](htmlconv/index.html)** in browser.
