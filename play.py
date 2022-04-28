@@ -1,4 +1,10 @@
-from nordle.nordle import Nordle, Status, GuessResult, Options
+from nordle.nordle import (
+    Nordle,
+    Status,
+    GuessResult,
+    Options,
+    CharacterPatternGenerator,
+)
 from colorama import Fore, Style
 from typing import List, Optional, Set
 import argparse
@@ -19,12 +25,21 @@ def format_hints(list: List[str], result: GuessResult) -> str:
     return formatted_string
 
 
-def run_game(show_hints: bool, debug: bool, max_tries: int, pattern_length: int):
+def run_game(
+    show_hints: bool, debug: bool, max_tries: int, pattern_length: int, char_mode: bool
+):
     options = Options()
     options.number_of_guesses = max_tries
-    options.number_groups = pattern_length
+    options.pattern_length = pattern_length
+    if char_mode:
+        options.pattern_generator = CharacterPatternGenerator()
     game = Nordle(options)
     game.new_game()
+
+    if debug:
+        p = game.hidden_pattern_to_guess()
+        print("Pattern to guess: " + " ".join(p))
+
     while game.current_status() == Status.STARTED:
         guesses = game.remaining_guesses()
         print(f"Guesses Left: {guesses}")
@@ -88,9 +103,22 @@ def main():
         help="Maximum number of retries.",
         default=4,
     )
+    parser.add_argument(
+        "-c",
+        "--character",
+        action="store_true",
+        dest="character",
+        help="Switch to character based mode.",
+    )
 
     args = parser.parse_args()
-    run_game(args.hints, args.debug, int(args.max_tries), int(args.pattern_length))
+    run_game(
+        args.hints,
+        args.debug,
+        int(args.max_tries),
+        int(args.pattern_length),
+        args.character,
+    )
 
 
 if __name__ == "__main__":

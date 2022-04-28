@@ -20,6 +20,7 @@ You can specify command line arguments to tweak the behavior of the game.
 | -d | Debug Mode. This will print the pattern that you have to guess at the start. |
 | -m *COUNT* | Max number of guesses a player can make. By default it's 10. |
 | -p *COUNT* | Length of pattern to guess. By default it's 4. |
+| -c | Switch to character based guesses. By default it's digit based. |
 | -h | Display all command line arguments |
 
 ## Web Based Version
