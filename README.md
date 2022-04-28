@@ -12,6 +12,8 @@ Here is how you can run this game.
 python3 -m pip install -r requirements.txt
 python 3 play.py
 ```
+### Screenshot
+![Screenshot](images/screenshot1.png "Screenshot")
 
 You can specify command line arguments to tweak the behavior of the game.
 | Option| Behavior|
