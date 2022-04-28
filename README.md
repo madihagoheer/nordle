@@ -15,6 +15,7 @@ python 3 play.py
 ### Screenshot
 ![Screenshot](images/screenshot1.png "Screenshot")
 
+### Command Line Options
 You can specify command line arguments to tweak the behavior of the game.
 | Option| Behavior|
 | --- | --- |
