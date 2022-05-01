@@ -10,7 +10,7 @@ This game comes in two falvors: Terminal based & Web based.
 Here is how you can run this game.
 ```
 python3 -m pip install -r requirements.txt
-python 3 play.py
+python3 play.py
 ```
 ### Screenshot
 ![Screenshot](images/screenshot1.png "Screenshot")
@@ -37,6 +37,9 @@ If you want to integrate NORDLE in your app you can import this and use it. Here
 | class Options | This class allows you to configure Nordle as per your liking. |
 | class Status | This class is used to check the current status of the game. |
 | class GuessResult | Object of this class is returned every time you make a guess. It contains details about your guess. |
+| class PatternGeneratorBase | Base class for writing your own pattern generator. |
+| class RandomOrgPatternGenerator | Pattern generator that uses Random.org for generating random numbers. |
+| class CharacterPatternGenerator | Pattern generator that generates character based patterns. |
 
 
 # Building NORDLE
