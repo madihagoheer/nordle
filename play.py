@@ -26,7 +26,7 @@ def format_hints(list: List[str], result: GuessResult) -> str:
 
 
 def run_game(
-    show_hints: bool, debug: bool, max_tries: int, pattern_length: int, char_mode: bool
+    show_hints: bool, show_pattern: bool, max_tries: int, pattern_length: int, char_mode: bool
 ) -> int:
     options = Options()
     options.number_of_guesses = max_tries
@@ -36,7 +36,7 @@ def run_game(
     game = Nordle(options)
     game.new_game()
 
-    if debug:
+    if show_pattern:
         p = game.hidden_pattern_to_guess()
         print("Pattern to guess: " + " ".join(p))
 
@@ -44,28 +44,32 @@ def run_game(
         guesses = game.remaining_guesses()
         print(f"Guesses Left: {guesses}")
         msg = "Please enter your guess separated by space (like 1 2 3 4): "
-        user_input = str(input(msg)).strip()
+        user_input = str(input(msg))
+        user_input = user_input.strip()
+
         if not user_input:
             print("Incorrect input. Please try again.")
-        else:
-            print("\n")
-            list = user_input.split(" ")
-            result = game.make_guess(list)
-            if game.remaining_guesses() > 0:
-                if result.result == GuessResult.CONTENT_MATCH:
-                    print("The player had guessed a number!")
-                    if show_hints:
-                        print(format_hints(list, result))
-                elif result.result == GuessResult.POSITION_MATCH:
-                    print(
-                        "The player had guessed a correct number and its correct location"
-                    )
-                    if show_hints:
-                        print(format_hints(list, result))
-                elif result.result == GuessResult.NO_MATCH:
-                    print("The player's guess was incorrect")
-                    if show_hints:
-                        print(format_hints(list, result))
+            continue
+
+        print("\n")
+        list = user_input.split(" ")
+        result = game.make_guess(list)
+
+        if game.remaining_guesses() > 0:
+            if result.result == GuessResult.CONTENT_MATCH:
+                print("The player had guessed a number!")
+                if show_hints:
+                    print(format_hints(list, result))
+            elif result.result == GuessResult.POSITION_MATCH:
+                print(
+                    "The player had guessed a correct number and its correct location"
+                )
+                if show_hints:
+                    print(format_hints(list, result))
+            elif result.result == GuessResult.NO_MATCH:
+                print("The player's guess was incorrect")
+                if show_hints:
+                    print(format_hints(list, result))
 
     if game.current_status() == Status.WON:
         print("Congratulatinos You WON!")
@@ -115,7 +119,7 @@ def main():
 
     args = parser.parse_args()
 
-    print(f"{Back.WHITE}{Fore.BLACK} WELCOME TO WORLD!! {Style.RESET_ALL}")
+    print(f"{Back.WHITE}{Fore.BLACK} WELCOME TO NORDLE!! {Style.RESET_ALL}")
     total_played = 0
     total_lost = 0
     total_won = 0

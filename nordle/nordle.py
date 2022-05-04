@@ -1,4 +1,4 @@
-from typing import List, Optional, Set, Dict
+from typing import List, Optional, Set, Dict, Any
 from abc import abstractmethod
 import requests
 import random
@@ -24,7 +24,9 @@ class RandomOrgPatternGenerator(PatternGeneratorBase):
         if count < 1 or min >= max:
             raise Exception("Invalid parameters provided to generate()")
 
-        r = requests.get(
+        # In your Terminal you can test this url by using CURL.
+        # curl --get "https://www.random.org/integers/?num=4&min=1&max=7&col=1&base=10&format=plain&rnd=new"
+        r: requests.models.Response = requests.get(
             f"https://www.random.org/integers/?num={count}&min={min}&max={max}&col=1&base=10&format=plain&rnd=new"
         )
         return r.text.splitlines()
@@ -39,7 +41,11 @@ class CharacterPatternGenerator(PatternGeneratorBase):
         if count < 1 or min >= max or max > 26:
             raise Exception("Invalid parameters provided to generate()")
 
-        return [random.choice(string.ascii_uppercase[min:max]) for _ in range(count)]
+        result: List[str] = []
+        for _ in range(count):
+            result.append(random.choice(string.ascii_uppercase[min:max]))
+        return result
+        # return [random.choice(string.ascii_uppercase[min:max]) for _ in range(count)]
 
 
 class Options:
@@ -77,9 +83,14 @@ class GuessResult:
     FULL_MATCH = 3
 
     def __init__(self):
-        self.result: int = 0
+        self.result: int = GuessResult.NO_MATCH
+        # This contains all the indices where user has correctly guessed the item.
         self.indeces_matched: Set[int] = set()
+        # This contains all the items that are in the pattern but user guessed them at wrong index.
         self.items_matched: Set[str] = set()
+
+    def get_result(self):
+        return self.result
 
     def get_indeces_matched(self) -> Set[int]:
         return self.indeces_matched
@@ -112,15 +123,18 @@ class Nordle:
 
     def new_game(self):
         self.status = Status.STARTED
-        self.pattern_to_guess = self.options.pattern_generator.generate(
-            self.options.pattern_length, 0, self.options.pattern_max_value
+        # Call the generate function on the pattern generator to get the pattern
+        # that user will guess.
+        generator = self.options.pattern_generator
+
+        self.pattern_to_guess = generator.generate(
+            # Pattern length
+            self.options.pattern_length,
+            # Min value of pattern
+            0,
+            # Max value of pattern
+            self.options.pattern_max_value
         )
-
-    def save_game(self):
-        pass
-
-    def load_game(self):
-        pass
 
     def make_guess(self, inp: List[str]) -> GuessResult:
         """returns a number guessed by the user"""
@@ -136,7 +150,6 @@ class Nordle:
         self.num_current_tries += 1
 
         result = GuessResult()
-        result.result = GuessResult.NO_MATCH
 
         # If user guessed the exact pattern then end the game
         if inp == self.pattern_to_guess:

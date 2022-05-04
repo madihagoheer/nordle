@@ -4,7 +4,7 @@ Welcome to NORDLE (Number Wordle) game.
 
 This game is very simple. Your goal is to guess a 4 digit pattern that computer comes up with. Each digit will be between 0 - 7. You will have 10 tries to guess the number. If you
 
-This game comes in two falvors: Terminal based & Web based.
+This game comes in two flavors: Terminal based & library based.
 
 ## Terminal Based Version
 Here is how you can run this game.
@@ -25,9 +25,6 @@ You can specify command line arguments to tweak the behavior of the game.
 | -p *COUNT* | Length of pattern to guess. By default it's 4. |
 | -c | Switch to character based guesses. By default it's digit based. |
 | -h | Display all command line arguments |
-
-## Web Based Version
-TBD
 
 ## Using NORDLE as Python Library
 If you want to integrate NORDLE in your app you can import this and use it. Here is high level overview of all the classes and their purpose.
