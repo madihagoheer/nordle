@@ -2,7 +2,16 @@
 # NORDLE
 Welcome to NORDLE (Number Wordle) game.
 
-This game is very simple. Your goal is to guess a 4 digit pattern that computer comes up with. Each digit will be between 0 - 7. You will have 10 tries to guess the number. If you
+This game is very simple. Your goal is to guess a 4 digit pattern that computer comes up with. Each digit will be between 0 - 7. You will have 10 tries to guess the number.
+
+## Extensions Implemented
+- Show hint in different colors.
+- Keep track of score (total attempts/won/lost).
+- Show the hidden pattern on demand for debugging/testing.
+- Allow user to change the size of pattern.
+- Allow user to change the max value of each digit.
+- Allow user to change the game from numbers to characters.
+- Added unit tests to test game play.
 
 This game comes in two flavors: Terminal based & library based.
 
