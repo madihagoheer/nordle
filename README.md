@@ -2,7 +2,9 @@
 # NORDLE
 Welcome to NORDLE (Number Wordle) game.
 
-This game is very simple. Your goal is to guess a 4 digit pattern that computer comes up with. Each digit will be between 0 - 7. You will have 10 tries to guess the number.
+This game is very simple. Your goal is to guess a 4 digit pattern that computer comes up with. Each digit will be between 0 - 7. You will have 10 tries to guess the number. This game follows the same rules as the famous wordle game. In every move you will have the option to guess a pattern if you guess the entire pattern correctly you will win if you guess part of the pattern you will get a hint whether part of your guess is correct or incorrect. The green color indicates that its a correct letter are at the correct index. The yellow color indicates that the letter is correct but its not on the right index. The red color indicates the particular letter doesn't exist in the pattern.
+
+This game uses an API website called random.org to generate random numbers. It makes an HTTP call to the server to get the random numbers. Those random numbers will be used in the game after we parse them.
 
 ## Extensions Implemented
 - Show hint in different colors.
